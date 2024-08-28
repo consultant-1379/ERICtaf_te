@@ -1,0 +1,21 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <span>
+        <j:invokeStatic var="currentThread" className="java.lang.Thread" method="currentThread"/>
+        <j:invoke var="buildClass" on="${currentThread.contextClassLoader}" method="loadClass">
+            <j:arg value="hudson.model.AbstractBuild"/>
+        </j:invoke>
+        <j:set var="build" value="${request.findAncestorObject(buildClass)}"/>
+        <f:section title="${%Build Parameters:}">
+            <f:entry title="${%Execution Id:}">
+                <f:textbox name="executionId" value="${build.executionId}" readonly="readonly"/>
+            </f:entry>
+            <f:entry title="${%Eiffel Job Trigger Event Id:}">
+                <f:textbox name="eiffelJobTriggerEventId" value="${build.eiffelJobTriggerEventId}" readonly="readonly"/>
+            </f:entry>
+            <f:entry title="${%Eiffel JobStartedEvent Id:}">
+                <f:textbox name="eiffelJobStartedEventId" value="${build.eiffelJobStartedEventId}" readonly="readonly"/>
+            </f:entry>
+        </f:section>
+    </span>
+</j:jelly>

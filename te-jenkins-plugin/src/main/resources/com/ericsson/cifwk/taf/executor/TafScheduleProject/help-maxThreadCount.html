@@ -1,0 +1,5 @@
+<p>Max thread count that testware JVM is allowed to spawn.</p>
+<p>If JVM will hit this limit, a thread dump will be printed.</p>
+<p>Use this option to investigate thread leaks in the testware. If defined, this value will be propagated to all executor jobs,
+    so they can be retriggered with updated value if needed. Make sure the default value here is big enough,
+    in order not to become a bottleneck.</p>

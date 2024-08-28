@@ -1,0 +1,14 @@
+<schedule>
+    <item>
+        <name>duplicate</name>
+        <component>g.r:a1</component>
+        <suites>1.xml</suites>
+    </item>
+    <item-group>
+        <item>
+            <name>duplicate</name>
+            <component>g.r:a1</component>
+            <suites>1.xml</suites>
+        </item>
+    </item-group>
+</schedule>

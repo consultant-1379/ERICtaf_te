@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item>
+        <name>illegal character $</name>
+        <component>g.r:a1</component>
+        <suites>1.xml</suites>
+    </item>
+</schedule>

@@ -1,0 +1,4 @@
+,,Success Count,Error Count,Avg Response Time,Min Response Time,Max Response Time
+http,http://example.com/bar,101,259,"1,052",57,"2,043"
+,http://example.com/baz,93,274,"1,105",72,"2,036"
+,http://example.com/foo,90,245,"1,005",50,"2,048"

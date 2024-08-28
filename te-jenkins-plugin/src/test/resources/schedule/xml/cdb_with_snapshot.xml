@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item stop-on-fail="true" timeout-in-seconds="123">
+        <name>artifact_with_snapshot</name>
+        <component>g.r:a1:1.0.1-TEST-SNAPSHOT</component>
+        <suites>1.xml</suites>
+    </item>
+    <item stop-on-fail="true" timeout-in-seconds="123">
+        <name>artifact_with_named_snapshot</name>
+        <component>g.r:a1:1.0.1-SNAPSHOT</component>
+        <suites>1.xml</suites>
+    </item>
+</schedule>

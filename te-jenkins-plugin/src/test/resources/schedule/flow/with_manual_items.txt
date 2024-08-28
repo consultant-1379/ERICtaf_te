@@ -1,0 +1,60 @@
+parallel(
+{
+    ignore(FAILURE){build(
+        'TEST_EXECUTOR',
+        EIFFEL_JOB_EXECUTION_ID:'executionId',
+        EIFFEL_SCHEDULE_ITEM_EXECUTION_ID:'scheduleItemExecutionId',
+        NAME:'1',
+        TAF_DEPENDENCIES:'g.r:a1:1.0',
+        TAF_GROUPS:'',
+        TAF_SUITES:'1.xml',
+        TIMEOUT_IN_SECONDS:''
+        )};
+    ignore(FAILURE){build(
+        'TEST_EXECUTOR',
+        EIFFEL_JOB_EXECUTION_ID:'executionId',
+        EIFFEL_SCHEDULE_ITEM_EXECUTION_ID:'scheduleItemExecutionId',
+        NAME:'2',
+        TAF_DEPENDENCIES:'g.r:a1:1.0',
+        TAF_GROUPS:'',
+        TAF_SUITES:'2.xml',
+        TIMEOUT_IN_SECONDS:''
+        )};
+    ignore(FAILURE){build(
+        'TEST_EXECUTOR',
+        EIFFEL_JOB_EXECUTION_ID:'executionId',
+        EIFFEL_SCHEDULE_ITEM_EXECUTION_ID:'scheduleItemExecutionId',
+        NAME:'21',
+        TAF_DEPENDENCIES:'g.r:a1:1.0',
+        TAF_GROUPS:'',
+        TAF_SUITES:'21.xml',
+        TIMEOUT_IN_SECONDS:''
+        )};
+    ignore(FAILURE){build(
+        'TEST_EXECUTOR',
+        EIFFEL_JOB_EXECUTION_ID:'executionId',
+        EIFFEL_SCHEDULE_ITEM_EXECUTION_ID:'scheduleItemExecutionId',
+        NAME:'4',
+        TAF_DEPENDENCIES:'g.r:a1:1.0',
+        TAF_GROUPS:'',
+        TAF_SUITES:'4.xml',
+        TIMEOUT_IN_SECONDS:''
+        )};
+    ignore(FAILURE){build(
+        'TEST_EXECUTOR',
+        EIFFEL_JOB_EXECUTION_ID:'executionId',
+        EIFFEL_SCHEDULE_ITEM_EXECUTION_ID:'scheduleItemExecutionId',
+        NAME:'3',
+        TAF_DEPENDENCIES:'g.r:a1:1.0',
+        TAF_GROUPS:'',
+        TAF_SUITES:'3.xml',
+        TIMEOUT_IN_SECONDS:'')
+    }
+},
+{ignore(FAILURE){build(
+    'TEST_EXECUTOR',
+    EIFFEL_JOB_EXECUTION_ID:'executionId',
+    MANUAL_TEST_CAMPAIGN_IDS:'1,2,3')
+    }
+}
+)

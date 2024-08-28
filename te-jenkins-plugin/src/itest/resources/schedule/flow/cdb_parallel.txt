@@ -1,0 +1,22 @@
+parallel(
+    {build(
+        "TEST_EXECUTOR_PAR",
+        TAF_DEPENDENCIES: "com.ericsson.cifwk.taf:te-test:0.1.0",
+        TAF_SUITES: "1a.xml",
+        TAF_GROUPS: "",
+        CONFIG_URI: "config-url"
+    )},
+    {build(
+        "TEST_EXECUTOR_PAR",
+        TAF_DEPENDENCIES: "com.ericsson.cifwk.taf:te-test:0.1.0",
+        TAF_SUITES: "1b.xml",
+        TAF_GROUPS: "",
+        CONFIG_URI: "config-url"
+    )}
+);
+build("TEST_EXECUTOR_PAR",
+    TAF_DEPENDENCIES: "com.ericsson.cifwk.taf:te-test:0.1.0",
+    TAF_SUITES: "2.xml",
+    TAF_GROUPS: "",
+    CONFIG_URI: "config-url"
+)

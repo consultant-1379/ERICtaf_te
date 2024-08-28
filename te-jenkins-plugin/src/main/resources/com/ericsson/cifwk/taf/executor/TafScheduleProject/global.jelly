@@ -1,0 +1,67 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:f="/lib/form">
+
+    <f:section title="Message bus to use for Eiffel reporting in tests" name="taf-schedule-project">
+        <f:entry title="${%RabbitMQ Host}" field="reportMbHost">
+            <f:textbox default="mb1"/>
+        </f:entry>
+        <f:entry title="${%RabbitMQ Port}" field="reportMbPort">
+            <f:number default="5672"/>
+        </f:entry>
+        <f:entry title="${%Exchange Name}" field="reportMbExchange">
+            <f:textbox default="eiffel.taf.executor"/>
+        </f:entry>
+        <f:entry title="${%RabbitMQ Username}" field="reportMbUsername">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="${%RabbitMQ Password}" field="reportMbPassword">
+            <f:password/>
+        </f:entry>
+        <f:entry title="${%DomainID to be used in Eiffel events}" field="reportMbDomainId">
+            <f:textbox default="test.execution"/>
+        </f:entry>
+        <f:validateButton title="${%Test Connection}" progress="${%Testing...}" method="testConnection" with="reportMbHost,reportMbPort,reportMbExchange,reportMbUsername,reportMbPassword"/>
+    </f:section>
+
+    <f:section title="${%TAF Executor Options}" name="taf-schedule-project">
+        <f:entry title="${%Allure report host}" field="reportsHost">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="${%Allure service URL}" field="allureServiceUrl">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="${%Allure service backend URL}" field="allureServiceBackendUrl">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="Upload reports to OSS Logs server" field="uploadToOssLogs">
+            <f:checkbox default="true"/>
+        </f:entry>
+        <f:entry title="${%Local reports storage}" field="localReportsStorage">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="${%Reporting scripts folder}" field="reportingScriptsFolder">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="${%Minimum Available Executor Node Disk Space in GB}" field="minExecutorDiskSpaceGB">
+            <f:textbox default="2"/>
+        </f:entry>
+        <f:entry title="${%Minimum Available Executor Node free Memory Space in GB}" field="minExecutorMemorySpaceGB">
+            <f:textbox default="15"/>
+        </f:entry>
+        <f:entry title="${%Allure version}" field="allureVersion">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="${%How many days to keep Flow builds and test data?}" field="deletableFlowsAgeInDays">
+            <f:number default="2"/>
+        </f:entry>
+    </f:section>
+
+    <f:section title="${%Advanced options}" name="advanced-te-options">
+        <f:optionalBlock field="runtimeLimitations" title="Enable testware runtime limitations" checked="${instance.runtimeLimitations != null}">
+            <f:entry title="Max thread count" field="maxThreadCount">
+                <f:textbox value="${instance.runtimeLimitations.maxThreadCount}"/>
+            </f:entry>
+        </f:optionalBlock>
+    </f:section>
+
+</j:jelly>

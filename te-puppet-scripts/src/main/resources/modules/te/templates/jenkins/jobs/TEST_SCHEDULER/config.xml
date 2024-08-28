@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.ericsson.cifwk.taf.executor.TafScheduleProject>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep><%= deletable_flows_age_in_days %></daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>default.value</jdk>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <com.ericsson.cifwk.taf.executor.TafScheduleBuilder/>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+  <reportMbHost><%= reporting_mb_host %></reportMbHost>
+  <reportMbPort><%= reporting_mb_port %></reportMbPort>
+  <reportMbUsername><%= reporting_mb_user_name %></reportMbUsername>
+  <reportMbPassword><%= reporting_mb_user_pwd %></reportMbPassword>
+  <reportMbExchange><%= reporting_mb_exchange %></reportMbExchange>
+  <reportMbDomainId><%= reporting_mb_domain_id %></reportMbDomainId>
+  <reportsHost><%= log_host %></reportsHost>
+  <localReportsStorage><%= te_logs %></localReportsStorage>
+  <reportingScriptsFolder><%= upload_folder %></reportingScriptsFolder>
+  <uploadToOssLogs>true</uploadToOssLogs>
+  <minExecutorDiskSpaceGB><%= min_executor_disk_space_gb %></minExecutorDiskSpaceGB>
+  <minExecutorDiskSpaceGB><%= min_executor_memory_space_gb %></minExecutorDiskSpaceGB>
+  <allureVersion><%= allure_version_pom %></allureVersion>
+  <deletableFlowsAgeInDays><%= deletable_flows_age_in_days %></deletableFlowsAgeInDays>
+  <runtimeLimitations>
+    <maxThreadCount>1000</maxThreadCount>
+  </runtimeLimitations>
+</com.ericsson.cifwk.taf.executor.TafScheduleProject>

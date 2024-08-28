@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="afterMethodFails">
+    <test name="AfterMethodFails">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.configuration.failures.AfterMethodFailingTest"/>
+        </classes>
+    </test>
+</suite>

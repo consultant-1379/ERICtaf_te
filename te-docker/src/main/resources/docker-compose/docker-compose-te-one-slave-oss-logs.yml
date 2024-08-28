@@ -1,0 +1,123 @@
+version: '2.1'
+
+# Start TE based on docker images from docker registry, Allure report will be hosted on https://oss-taf-logs.seli.wh.rnd.internal.ericsson.com
+# Note: No image will be built, all images will be downloaded if not already available locally.
+# Note: Don't forget to set the following environment variables if you are not using the "dockerized_te.sh script:
+#       HOSTNAME          e.g. 'export HOSTNAME=159.107.166.146'
+#       ARM_URL           e.g. 'export ARM_URL=https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public'
+#       EXECUTOR_COUNT    e.g. 'export EXECUTOR_COUNT=4'
+#       MAVEN_OFFLINE     e.g. 'export MAVEN_OFFLINE=true'
+
+services:
+  taf_te_message_bus:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_message_bus:${project.version}
+    container_name: "taf_te_messagebus"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - docker_te
+  taf_te_master:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_master:${project.version}
+    container_name: "taf_te_master"
+    ports:
+      - "50000:50000"
+      - "8080:8080"
+    command: --prefix=/jenkins/ --external-jenkins-address=http://${HOSTNAME}:8080/jenkins/ --allure_service_url=http://${HOSTNAME}:8088/api/reports --allure_service_backend_url=http://${HOSTNAME}:8000
+    volumes:
+      - /var/log/te_logs:/var/log/te_logs
+      - /var/tmp/te_storage:/var/tmp/te_storage
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_message_bus
+    networks:
+      - docker_te
+  taf_te_slave1:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_slave:${project.version}
+    container_name: "taf_te_slave1"
+    mem_limit: 6gb
+    command: --te-master-address=http://${HOSTNAME}:8080/jenkins/ --executor-count=${EXECUTOR_COUNT} --create-jenkins-node=true --agent-name=taf_te_slave_jnlp-1 --arm_mirror=${ARM_URL} --maven-offline=${MAVEN_OFFLINE}
+    volumes:
+      - /var/log/te_logs:/var/log/te_logs
+      - /var/tmp/te_storage:/var/tmp/te_storage
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: [ "CMD", "service", "docker", "start" ]
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_master
+    networks:
+      - docker_te
+    privileged: true
+  backend:
+    image: armdocker.rnd.ericsson.se/proj_allure_service/allure-service:${allure-service.version}
+    container_name: "taf_te_allure_backend"
+    volumes:
+      - /var/log/allure-service:/var/log/allure-service
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+        - "8000:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=test
+      - spring.cloud.config.failFast=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      retries: 3
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    networks:
+      - docker_te
+  allure_service_nginx:
+    image: armdocker.rnd.ericsson.se/proj_allure_service/allure-nginx:${allure-service.version}
+    container_name: "taf_te_allure_nginx"
+    ports:
+      - "8088:80"
+      - "443:443"
+    volumes:
+      - /var/log/te_logs:/usr/share/nginx/html:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/te_logs:/usr/local/nginx/html:ro
+    healthcheck:
+      test: ["CMD", "ping", "-c1", "localhost"]
+      interval: 20s
+      retries: 3
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - "backend"
+    networks:
+      - docker_te
+networks:
+  docker_te:
+    enable_ipv6: true
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+        - subnet: 2001:3984:3989::/64
+          gateway: 2001:3984:3989::1

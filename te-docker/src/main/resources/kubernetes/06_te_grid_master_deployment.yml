@@ -1,0 +1,46 @@
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "te-jenkins-deployment"
+  namespace: "taf-te"
+  labels:
+    name: "te-jenkins-deployment"
+spec:
+  replicas: 1
+  minReadySeconds: 5
+  progressDeadlineSeconds: 30
+  revisionHistoryLimit: 1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+  template:
+    metadata:
+      name: "jenkins-tpl"
+      labels:
+        name: "jenkins-tpl"
+    spec:
+      imagePullSecrets:
+        - name: "armdocker.rnd.ericsson.se"
+      containers:
+        - name: "te-master-container"
+          image: "armdocker.rnd.ericsson.se/proj_taf_te/taf_te_grid_master"
+          args: [
+            "--external-jenkins-address=http://te-master/jenkins/",
+            "--prefix=/jenkins/",
+            "--message-bus-host=te-mb-service",
+            "--allure_service_url=http://allure-service"
+          ]
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+          # Allow undefined params, disable setup wizard and make agent provisioning faster
+          env:
+            - name: JAVA_OPTS
+              value: "-Dhudson.model.ParametersAction.keepUndefinedParameters=true -Djenkins.install.runSetupWizard=false -Dhudson.slaves.NodeProvisioner.MARGIN=60 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.88"
+          livenessProbe:
+            httpGet:
+              path: /jenkins/
+              port: 8080
+            initialDelaySeconds: 60
+            timeoutSeconds: 20

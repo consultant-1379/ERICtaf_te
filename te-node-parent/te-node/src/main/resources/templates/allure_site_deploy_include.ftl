@@ -1,0 +1,127 @@
+<#if (allureLogDir??)>
+<#--
+Need this plugin declaration to enable the latter resource copying bound to 'site-deploy' phase
+and at the same time bypass the default 'site' phase activity which would fail by default.
+'inputDirectory' is a a mandatory parameter, but doesn't have any meaning here, as it's not being used.
+-->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-site-plugin</artifactId>
+    <version>3.3</version>
+    <configuration>
+        <skip>true</skip>
+        <skipDeploy>true</skipDeploy>
+        <inputDirectory>${esc_d}{project.build.directory}</inputDirectory>
+    </configuration>
+</plugin>
+
+    <#if (ALLURE_SERVICE_URL?has_content)>
+        <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.6</version>
+            <executions>
+                <execution>
+                    <id>copy-allure-reports</id>
+                    <phase>site-deploy</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${allureLogDir}</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${esc_d}{project.build.directory}/allure-results</directory>
+                                    <includes>
+                                        <include>**/*.xml</include>
+                                    </includes>
+                                <filtering>true</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <appendAssemblyId>true</appendAssemblyId>
+                <finalName>${GENERAL_EXECUTION_ID}</finalName>
+                <appendAssemblyId>false</appendAssemblyId>
+                <descriptors>
+                    <descriptor>zip.xml</descriptor>
+                </descriptors>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>make-assembly</id>
+                    <phase>post-site</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>wagon-maven-plugin</artifactId>
+            <version>1.0</version>
+            <executions>
+                <execution>
+                    <id>upload-report-data</id>
+                    <phase>site-deploy</phase>
+                    <goals>
+                        <goal>upload</goal>
+                    </goals>
+                    <configuration>
+                        <wagonProvider>httpclient</wagonProvider>
+                        <url>${ALLURE_SERVICE_URL}</url>
+                        <fromDir>${esc_d}{project.build.directory}</fromDir>
+                        <includes>${GENERAL_EXECUTION_ID}.zip</includes>
+                        <httpConfiguration>
+                            <put>
+                                <connectionTimeout>5000</connectionTimeout>
+                                <useDefaultHeaders>false</useDefaultHeaders>
+                                <headers>
+                                    <header>
+                                        <name>Content-Type</name>
+                                        <value>application/octet-stream</value>
+                                    </header>
+                                </headers>
+                            </put>
+                        </httpConfiguration>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    <#else>
+        <!--
+            TODO: Temporal solution. Remove this plugin once Allure Service will be used by TE.
+        -->
+        <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.6</version>
+            <executions>
+                <execution>
+                    <id>copy-allure-reports-to-mounted-ftp</id>
+                    <phase>site-deploy</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${allureLogDir}</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${esc_d}{project.build.directory}/allure-results</directory>
+                                <filtering>false</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </#if>
+</#if>

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+trap "echo SIGINT" SIGINT
+trap "echo SIGTERM" SIGTERM
+
+ps aux | grep ProcessDestroyerTestScript
+
+echo "Print file? [y/n]: "
+read
+if [ "$REPLY" = "y" ]; then
+        echo "ok"
+fi

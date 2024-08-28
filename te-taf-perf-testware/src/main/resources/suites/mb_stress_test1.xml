@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="EisMbStressTestSuite1">
+    <parameter name="taf.repeat-count" value="4997"/>
+    <parameter name="taf.vusers" value="5"/>
+    <test name="EisMbStressTest">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.EisMbStressTest"/>
+        </classes>
+    </test>
+</suite>

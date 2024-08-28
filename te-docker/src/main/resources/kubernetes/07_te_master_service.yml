@@ -1,0 +1,26 @@
+---
+apiVersion: "v1"
+kind: "List"
+items:
+
+  - apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      name: "te-master"
+      namespace: "taf-te"
+    spec:
+      type: "NodePort"
+      selector:
+        name: "jenkins-tpl"
+      ports:
+        -
+          name: "http"
+          port: 80
+          targetPort: 8080
+          nodePort: 30005
+          protocol: "TCP"
+        -
+          name: "slave"
+          port: 50000
+          protocol: "TCP"
+

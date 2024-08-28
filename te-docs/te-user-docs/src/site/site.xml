@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+    <bannerLeft>
+        <name>TAF Test Executor user guide</name>
+    </bannerLeft>
+
+    <publishDate position="right"/>
+    <version position="none"/>
+
+    <bannerRight>
+        <src>images/te_logo.png</src>
+    </bannerRight>
+
+    <body>
+        <links>
+            <item name="User docs" href="https://taf.seli.wh.rnd.internal.ericsson.com/tedocs/latest/index.html"/>
+            <item name="Dev docs" href="https://taf.seli.wh.rnd.internal.ericsson.com/tedevdocs/latest/index.html"/>
+            <item name="TAF user docs" href="https://taf.seli.wh.rnd.internal.ericsson.com/"/>
+            <item name="TE releases" href="https://taf.seli.wh.rnd.internal.ericsson.com/tereleases/changelog.html"/>
+        </links>
+
+        <menu name="TAF TE">
+            <item name="Introduction" href="/index.html"/>
+            <item name="Features" href="/features.html"/>
+            <item name="Getting Started" href="/getting_started.html"/>
+        </menu>
+
+        <menu name="Schedule Creation">
+            <item name="Schedule Format" href="/schedule.html">
+                <item name="Environmental Properties" href="/schedule_env_props.html"/>
+                <item name="Manual Items" href="/manual_items.html"/>
+            </item>
+            <item name="Schedule FAQ" href="/schedule_faq.html"/>
+            <item name="Quickest run possible" href="/quickest_run.html"/>
+        </menu>
+
+        <menu name="Environment Set-up">
+            <item name="TE vApp" href="/te_vapp.html"/>
+            <item name="Dockerised TE" href="/dockerised_te.html"/>
+            <item name="Trigger Set-up" href="/te_trigger_setup.html"/>
+            <item name="TE Cloud" href="/te_cloud.html"/>
+        </menu>
+
+        <menu name="Execution Configuration">
+            <item name="Trigger plugin configuration" href="/te_trigger_plugin.html"/>
+            <item name="Test Artifact configuration" href="/te_trigger_test_artifact.html"/>
+            <item name="RFA and KGB tests" href="/rfa_kgb_tests.html"/>
+            <item name="Schedule source" href="/schedule_source.html"/>
+            <item name="Test results analysis" href="/te_test_result_analysis.html"/>
+        </menu>
+
+        <menu name="Reporting">
+            <item name="Allure reports" href="/allure_reports.html"/>
+            <item name="Summary page" href="/summary_page.html"/>
+            <item name="Allure service" href="/allure_service_integration.html"/>
+        </menu>
+
+        <menu name="How Tos">
+            <item name="Test run configuration best practices" href="howto/best_practices.html"/>
+            <item name="How to use TE to create a testware ISO with dependencies" href="howto/dependency_iso.html"/>
+        </menu>
+
+        <menu name="Troubleshooting">
+            <item name="FAQ" href="/te_faq.html"/>
+            <item name="TE Slave Health Check" href="/te_slave_health_check.html"/>
+            <item name="Re-running tests" href="/re_running_tests.html"/>
+            <item name="Debugging TE execution" href="/debug_te.html"/>
+            <item name="Message bus problems" href="/mb_problems.html"/>
+        </menu>
+
+    </body>
+
+    <skin>
+        <groupId>com.ericsson.cds</groupId>
+        <artifactId>ericsson-skin-stats</artifactId>
+        <version>1.0.3</version>
+    </skin>
+    <custom>
+        <uiStats>
+            <serverUrl>https://cds.ericsson.se/analytics/</serverUrl>
+            <siteId>12</siteId>
+        </uiStats>
+        <search>
+            <url>http://atclvm1170.athtem.eei.ericsson.se:8080/search/#searchapp</url>
+        </search>
+        <fluidoSkin>
+            <sourceLineNumbersEnabled>false</sourceLineNumbersEnabled>
+        </fluidoSkin>
+    </custom>
+</project>

@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ericsson.cifwk</groupId>
+        <artifactId>ERICtaf_te</artifactId>
+        <version>2.70.2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.ericsson.cifwk.taf.executor</groupId>
+    <artifactId>te-taf-perf-testware</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ericsson.cifwk</groupId>
+            <artifactId>${taf.sdk}-taf-sdk</artifactId>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>tafTests</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>2.18.1</version>
+                            <dependencies>
+                                <dependency>
+                                    <groupId>com.ericsson.cifwk.taf</groupId>
+                                    <artifactId>taf-surefire-provider</artifactId>
+                                    <version>${taf-surefire-provider.version}</version>
+                                </dependency>
+                            </dependencies>
+                            <configuration>
+                                <suiteXmlFiles>
+                                    <suiteXmlFile>te_perf_test1.xml</suiteXmlFile>
+                                    <suiteXmlFile>te_perf_test2.xml</suiteXmlFile>
+                                </suiteXmlFiles>
+                                <testSourceDirectory>${project.build.sourceDirectory}</testSourceDirectory>
+                                <testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
+                                <printSummary>false</printSummary>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+
+</project>

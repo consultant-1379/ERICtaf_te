@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TePerfTest1">
+    <test name="TePerfTest1">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.EricssonSiteScenarioTest"/>
+        </classes>
+    </test>
+</suite>

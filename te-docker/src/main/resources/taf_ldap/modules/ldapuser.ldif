@@ -1,0 +1,21 @@
+dn: ou=People, dc=agat,dc=enm,dc=org
+ou: People
+description: Users of admin
+objectClass: organizationalUnit
+
+dn: uid=userldap,ou=People,dc=agat,dc=enm,dc=org
+uid: userldap
+cn: userldap
+objectClass: account
+objectClass: posixAccount
+objectClass: top
+objectClass: shadowAccount
+userPassword:{crypt}$6$rMWJ0FIy$YKwYsPAFtlShgW5HRcqF6SAPTxdyscqs8ph4TAFKs.rgQmkhLl0imtd8H6ZnQcRYtTFnx4sFg4MMRPabcG8bX1
+shadowLastChange: 17813
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/bash
+uidNumber: 1001
+gidNumber: 1001
+homeDirectory: /home/userldap

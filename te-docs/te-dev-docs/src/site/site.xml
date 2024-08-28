@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+
+    <!-- Defining just the dev-specific entries here, everything else is inherited from user docs site.xml -->
+
+    <bannerLeft>
+        <name>TAF TE developer guide</name>
+    </bannerLeft>
+    <bannerRight>
+        <src>images/te_logo.png</src>
+    </bannerRight>
+
+    <body>
+        <menu name="Core concepts">
+            <item name="Architecture" href="/index.html">
+                <item name="Jenkins aspects" href="/te_jenkins_aspects.html"/>
+            </item>
+            <item name="How the build is triggered" href="/build.html">
+                <item name="REST service" href="/rest_service.html"/>
+                <item name="TE Trigger plugin" href="/trigger_plugin.html"/>
+                <item name="Parameter passing" href="/param_passing.html"/>
+            </item>
+            <item name="Test POM generation" href="/test_pom_gen.html"/>
+            <item name="Hosts and properties for TAF runtime" href="/injection_into_taf.html"/>
+            <item name="Health checks" href="/health_checks.html"/>
+            <item name="Allure service in TE" href="/allure_service.html"/>
+            <item name="Allure Report Rentention Times" href="/log_retention.html"/>
+        </menu>
+
+        <menu name="Dockerized TE">
+            <item name="Master setup" href="/te_docker_master.html"/>
+            <item name="Slave setup" href="/te_docker_slave.html"/>
+            <item name="Full TE ecosystem" href="/te_docker_compose.html"/>
+        </menu>
+
+        <menu name="TE Grid">
+            <item name="K8s and TE K8s cluster" href="/k8s_intro.html"/>
+            <item name="K8s plugin" href="/k8s_plugin.html"/>
+            <item name="Slave rollout" href="/te_slave_rollout.html"/>
+            <item name="Setting up TE grid" href="/te_grid_setup.html"/>
+            <item name="Grid health checks" href="/te_grid_health_checks.html"/>
+        </menu>
+
+        <menu name="Troubleshooting">
+            <item name="Health checks in UI" href="/health_checks_ui.html"/>
+            <item name="Test POM" href="/test_pom_ui.html"/>
+        </menu>
+
+    </body>
+</project>

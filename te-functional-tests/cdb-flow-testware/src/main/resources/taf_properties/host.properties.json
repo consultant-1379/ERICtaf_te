@@ -1,0 +1,74 @@
+[
+    {
+        "hostname": "te_master",
+        "ip": "atvts3471.athtem.eei.ericsson.se",
+        "type": "UNKNOWN",
+        "ports": {
+            "http": 8080,
+            "ssh": 22
+        },
+        "users": [
+            {
+                "username": "root",
+                "password": "shroot",
+                "type": "admin"
+            }
+        ]
+    },
+    {
+        "hostname": "te_slave",
+        "ip": "jenkinss1",
+        "type": "UNKNOWN",
+        "ports": {
+            "ssh": 22
+        },
+        "users": [
+            {
+                "username": "root",
+                "password": "shroot",
+                "type": "admin"
+            }
+        ]
+    },
+    {
+        "hostname": "reporting_message_bus",
+        "ip": "atvts3471.athtem.eei.ericsson.se",
+        "type": "RABBITMQ",
+        "ports": {
+            "http": 15672,
+            "amqp": 5672
+        },
+        "users": [
+            {
+                "username": "guest",
+                "password": "guest",
+                "type": "admin"
+            }
+        ]
+    },
+    {
+        "hostname": "event_repository",
+        "ip": "atvts3471.athtem.eei.ericsson.se",
+        "type": "UNKNOWN",
+        "ports": {
+            "http": 8088
+        }
+    },
+    {
+        "hostname": "selenium_grid",
+        "ip": "141.137.235.254",
+        "type": "SELENIUM_GRID",
+        "users": [
+            {"username": "root", "password": "shroot", "type": "admin"}
+        ],
+        "ports": {"http": 4444}
+    },
+    {
+        "hostname": "allure_service",
+        "ip": "atvts2780.athtem.eei.ericsson.se",
+        "type": "UNKNOWN",
+        "ports": {
+            "http": 8088
+        }
+    }
+]

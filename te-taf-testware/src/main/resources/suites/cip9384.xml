@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="cip9384">
+    <test name="CIP9384Test">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.allure.CIP9384_Test"/>
+        </classes>
+    </test>
+</suite>

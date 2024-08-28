@@ -1,0 +1,178 @@
+version: '2.1'
+
+# Start TE based on docker images from docker registry, Allure report will be hosted on https://oss-taf-logs.seli.wh.rnd.internal.ericsson.com
+# Note: No image will be built, all images will be downloaded if not already available locally.
+# Note: Don't forget to set the following environment variables if you are not using the "dockerized_te.sh script:
+#       HOSTNAME          e.g. 'export HOSTNAME=159.107.166.146'
+#       ARM_URL           e.g. 'export ARM_URL=https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public'
+#       EXECUTOR_COUNT    e.g. 'export EXECUTOR_COUNT=4'
+#       MAVEN_OFFLINE     e.g. 'export MAVEN_OFFLINE=true'
+
+services:
+  taf_te_message_bus:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_message_bus:${project.version}
+    container_name: "taf_te_messagebus"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+  taf_te_master:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_master:${project.version}
+    container_name: "taf_te_master"
+    ports:
+      - "50000:50000"
+      - "8080:8080"
+    command: --prefix=/jenkins/ --external-jenkins-address=http://${HOSTNAME}:8080/jenkins/ --allure_service_url=http://${HOSTNAME}:8088/api/reports --allure_service_backend_url=http://${HOSTNAME}:8000
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/te_logs:/var/log/te_logs
+      - /var/tmp/te_storage:/var/tmp/te_storage
+    environment:
+      - JAVA_TOOL_OPTIONS="-XX:MaxRAMFraction=10"
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_message_bus
+  taf_te_slave1:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_slave:${project.version}
+    container_name: "taf_te_slave1"
+    command: --te-master-address=http://${HOSTNAME}:8080/jenkins/ --executor-count=${EXECUTOR_COUNT} --create-jenkins-node=true --agent-name=taf_te_slave_jnlp-1 --arm_mirror=${ARM_URL} --maven-offline=${MAVEN_OFFLINE}
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/te_logs:/var/log/te_logs
+      - /var/tmp/te_storage:/var/tmp/te_storage
+    environment:
+      - JAVA_TOOL_OPTIONS="-XX:MaxRAMFraction=27"
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_master
+  taf_te_slave2:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_slave:${project.version}
+    container_name: "taf_te_slave2"
+    command: --te-master-address=http://${HOSTNAME}:8080/jenkins/ --executor-count=${EXECUTOR_COUNT} --create-jenkins-node=true --agent-name=taf_te_slave_jnlp-2 --arm_mirror=${ARM_URL} --maven-offline=${MAVEN_OFFLINE}
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/te_logs:/var/log/te_logs
+      - /var/tmp/te_storage:/var/tmp/te_storage
+    environment:
+      - JAVA_TOOL_OPTIONS="-XX:MaxRAMFraction=27"
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_master
+  taf_te_slave3:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_slave:${project.version}
+    container_name: "taf_te_slave3"
+    command: --te-master-address=http://${HOSTNAME}:8080/jenkins/ --executor-count=${EXECUTOR_COUNT} --create-jenkins-node=true --agent-name=taf_te_slave_jnlp-3 --arm_mirror=${ARM_URL} --maven-offline=${MAVEN_OFFLINE}
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/te_logs:/var/log/te_logs
+      - /var/tmp/te_storage:/var/tmp/te_storage
+    environment:
+      - JAVA_TOOL_OPTIONS="-XX:MaxRAMFraction=27"
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_master
+  backend:
+    image: armdocker.rnd.ericsson.se/proj_allure_service/allure-service:${allure-service.version}
+    container_name: "taf_te_allure_backend"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/allure-service:/var/log/allure-service
+    ports:
+        - "8000:8080"
+    environment:
+      - JAVA_TOOL_OPTIONS="-XX:MaxRAMFraction=10"
+      - SPRING_PROFILES_ACTIVE=test
+      - spring.cloud.config.failFast=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      retries: 3
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+  allure_service_nginx:
+    image: armdocker.rnd.ericsson.se/proj_allure_service/allure-nginx:${allure-service.version}
+    container_name: "taf_te_allure_nginx"
+    ports:
+      - "8088:80"
+      - "443:443"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/te_logs:/usr/share/nginx/html:ro
+      - /var/log/te_logs:/usr/local/nginx/html:ro
+    healthcheck:
+      test: ["CMD", "ping", "-c1", "localhost"]
+      interval: 20s
+      retries: 3
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - "backend"
+  TDM_backend:
+    image: armdocker.rnd.ericsson.se/proj_taf_tdm/tdm-server:${tdm.version}
+    container_name: "TDM_backend"
+    restart: "always"
+    ports:
+      - "9443:8888"
+      - "8082:8444"
+    environment:
+      - SPRING_PROFILES_ACTIVE=customer
+    volumes:
+      - /opt/store/volumes/tdm-logs:/var/log/tdm
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - mongodb
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "3"
+    links:
+      - "taf_ldap:enmteagat"
+  mongodb:
+    image: mongo:3.2
+    restart: "always"
+    ports:
+     - "27017:27017"
+    volumes:
+     - /tdmMongoDB/db:/data/db
+     - /etc/timezone:/etc/timezone:ro
+     - /etc/localtime:/etc/localtime:ro
+  taf_ldap:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_ldap:${project.version}
+    container_name: "taf_ldap"
+    ports:
+      - "3689:389"
+    volumes:
+      - /etc/openldap:/etc/ldap
+      - /var/lib/ldap/:/var/lib/ldap
+      - /etc/ldap/prepopulate/:/etc/ldap.dist/prepopulate
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro

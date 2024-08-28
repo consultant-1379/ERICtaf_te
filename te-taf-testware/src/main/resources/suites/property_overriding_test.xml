@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="propertyOverridingTests">
+    <test name="PropertyOverridingTest">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.properties.PropertyOverridingTest"/>
+        </classes>
+    </test>
+</suite>

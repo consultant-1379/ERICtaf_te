@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="beforeMethodFails">
+    <test name="BeforeMethodFails">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.configuration.failures.BeforeMethodFailingTest"/>
+        </classes>
+    </test>
+</suite>

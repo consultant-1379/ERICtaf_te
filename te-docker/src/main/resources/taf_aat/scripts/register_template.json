@@ -1,0 +1,98 @@
+{
+  "serviceInfo":{
+    "serviceName":"${TEST SERVICE NAME}",
+    "serviceType":"function test",
+    "FATNumber":"${FAT LICENSE NUMBER}",
+    "description":"${TEST SERVICE DESCRIPTION}",
+    "serviceAddress":"${TE FULL HOSTNAME}:5000",
+    "serviceProtocol":"http",
+    "secret":"${SECRET PASSWORD}",
+    "serviceOwner":"${EMAIL ADDRESS}",
+    "version":"1.1",
+    "resultSyncInterval":60,
+    "getUpgradedDataTimeout":20,
+    "dependencies":{
+      "hectar":"1.8"
+    }
+  },
+  "schemas":[
+    {
+      "id":"Testing",
+      "schema":{
+        "aSchemaType":"configuration",
+        "type":"object",
+        "title":"Test executor schema",
+        "required":[
+          "taf_trigger_jar",
+          "taf_version",
+          "taf_te_address",
+          "taf_test_properties",
+          "taf_host_properties",
+          "taf_schedule",
+          "taf_te_user",
+          "taf_te_password"
+        ],
+        "aUniqueFields":[
+
+        ],
+        "aFieldsOrder":[
+          "taf_trigger_jar",
+          "taf_version",
+          "taf_te_address",
+          "taf_test_properties",
+          "taf_host_properties",
+          "taf_schedule",
+          "taf_te_user",
+          "taf_te_password"
+        ],
+        "properties":{
+          "taf_trigger_jar":{
+            "title":"TAF Trigger jar",
+            "type":"string"
+          },
+          "taf_version":{
+            "title":"TAF Version",
+            "type":"string"
+          },
+          "taf_te_address":{
+            "title":"TAF TE Address",
+            "type":"string"
+          },
+          "taf_test_properties":{
+            "title":"TAF Test Properties",
+            "type":"string"
+          },
+          "taf_host_properties":{
+            "title":"TAF Host Properties",
+            "type":"string"
+          },
+          "taf_schedule":{
+            "title":"TAF Schedule XML",
+            "type":"string"
+          },
+          "taf_te_user":{
+            "title":"TAF TE User",
+            "type":"string"
+          },
+          "taf_te_password":{
+            "title":"TAF TE Password",
+            "type":"string"
+          }
+        }
+      }
+    }
+  ],
+  "templates":[
+    {
+      "id":"attach_req_template",
+      "template":{
+        "type":"instruction",
+        "name":"All Suites",
+        "parameters":{
+
+        },
+        "required":""
+      }
+    }
+  ]
+}

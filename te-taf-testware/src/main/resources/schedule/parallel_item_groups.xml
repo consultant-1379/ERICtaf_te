@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item-group parallel="true">
+        <item-group parallel="false">
+            <item>
+                <name>Step 21</name>
+                <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+                <suites>success.xml</suites>
+            </item>
+            <item>
+                <name>Step 22</name>
+                <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+                <suites>success.xml</suites>
+            </item>
+        </item-group>
+        <item-group parallel="false">
+            <item>
+                <name>Step 23</name>
+                <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+                <suites>success.xml</suites>
+            </item>
+        </item-group>
+    </item-group>
+</schedule>

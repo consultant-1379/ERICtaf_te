@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item-group parallel="true">
+        <item>
+            <name>Job 1</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 2</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 3</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 4</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 5</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 6</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 7</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 8</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 9</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 10</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 11</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 12</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 13</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 14</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 15</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 16</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 17</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 18</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 19</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 20</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml</suites>
+        </item>
+    </item-group>
+</schedule>

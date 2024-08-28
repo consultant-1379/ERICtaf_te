@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>2.25</version>
+        <relativePath />
+    </parent>
+
+    <groupId>com.ericsson.cifwk.taf.executor</groupId>
+    <artifactId>te-jenkins-plugin</artifactId>
+    <version>2.70.2-SNAPSHOT</version>
+    <packaging>hpi</packaging>
+    <description>Receives REST call and executes TAF tests as a build flow</description>
+
+    <properties>
+        <!-- For Enforcer defined in parent POM -->
+        <enforcer.fail>0</enforcer.fail>
+        <java.level>8</java.level>
+        <!-- / For Enforcer defined in parent POM -->
+        <target.java.version>1.8</target.java.version>
+        <source.java.version>1.8</source.java.version>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <!-- To override the default 1.x version from parent POM -->
+        <jenkins.version>2.25</jenkins.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Integration Testing Support: src/itest -->
+        <test.source>${project.basedir}/src/test/java</test.source>
+        <test.output>${project.build.directory}/test-classes</test.output>
+        <!-- -->
+        <maven.build.timestamp.format>yyyyMMdd-HHmmss.SSSZ</maven.build.timestamp.format>
+        <plugin.version.description>${maven.build.timestamp}</plugin.version.description>
+        <json.version>1.1.1</json.version>
+    </properties>
+
+    <build>
+        <testSourceDirectory>${test.source}</testSourceDirectory>
+        <testOutputDirectory>${test.output}</testOutputDirectory>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jenkins-ci.tools</groupId>
+                    <artifactId>maven-hpi-plugin</artifactId>
+                    <version>1.121</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${target.java.version}</source>
+                    <target>${source.java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jenkins-ci.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <configuration>
+                    <defaultPort>8091</defaultPort>
+                    <jenkinsHome>${project.build.directory}/jenkins</jenkinsHome>
+                    <disabledTestInjection>true</disabledTestInjection>
+                    <!-- Do not install optional plugins along with this one. Known effect: ignored in hpi:run -->
+                    <!--<includesOptional>false</includesOptional>-->
+                    <systemProperties>
+                        <hudson.model.ParametersAction.keepUndefinedParameters>true</hudson.model.ParametersAction.keepUndefinedParameters>
+                        <jenkins.install.runSetupWizard>false</jenkins.install.runSetupWizard>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <!-- Integration Testing Support: src/itest -->
+            <id>itest</id>
+            <properties>
+                <test.source>${project.basedir}/src/itest/java</test.source>
+                <test.output>${project.build.directory}/itest-classes</test.output>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <!-- This particular version is needed for Host parsing in tests -->
+                    <dependency>
+                        <groupId>org.reflections</groupId>
+                        <artifactId>reflections</artifactId>
+                        <version>0.9.8</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/itest/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <reportsDirectory>${project.build.directory}/surefire-itest-reports</reportsDirectory>
+                            <testSourceDirectory>${test.source}</testSourceDirectory>
+                            <testOutputDirectory>${test.output}</testOutputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Releases</name>
+            <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Snapshots</name>
+            <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.ericsson.cifwk.taf.executor</groupId>
+                <artifactId>te-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.ericsson.de</groupId>
+            <artifactId>cli-tool</artifactId>
+            <version>1.0.17</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>te-shared</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>te-remote-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.cifwk</groupId>
+            <artifactId>taf-scheduler-rest-client</artifactId>
+        </dependency>
+        <!-- This transitive dep from above isn't packaged in plugin if not put as a direct dependency here.
+         Somehow affected by Kubernetes plugin dependencies -->
+        <dependency>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId>
+            <version>1.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.duraci</groupId>
+            <artifactId>messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.simpleframework</groupId>
+            <artifactId>simple-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>zt-zip</artifactId>
+        </dependency>
+        <!-- Used to manipulate json file  -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+
+        <!-- TESTING -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>te-remote-api-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.cifwk</groupId>
+            <artifactId>ui-taf-sdk</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>te-test-utils</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- LOGGING -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Required Jenkins plugins -->
+        <!-- For executor job dependency graph -->
+        <dependency>
+            <groupId>com.cloudbees.plugins</groupId>
+            <artifactId>build-flow-plugin</artifactId>
+        </dependency>
+        <!-- For Swarm slaves (TE node is Swarm slave) -->
+        <dependency>
+            <groupId>org.jenkins-ci.plugins</groupId>
+            <artifactId>swarm</artifactId>
+        </dependency>
+        <!-- For Kubernetes plugin health checks -->
+        <dependency>
+            <groupId>org.csanchez.jenkins.plugins</groupId>
+            <artifactId>kubernetes</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- / Required Jenkins plugins -->
+
+        <!-- COMMONS -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- Freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+    </dependencies>
+
+    <scm>
+        <tag>ERICtaf_te-2.49.1-SNAPSHOT</tag>
+    </scm>
+</project>

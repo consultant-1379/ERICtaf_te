@@ -1,0 +1,39 @@
+<schedule>
+    <item timeout-in-seconds="123">
+        <name>1</name>
+        <component>g.r:a1</component>
+        <suites>1.xml</suites>
+        <groups>performance,stress</groups>
+    </item>
+    <item>
+        <name>2</name>
+        <component>g.r:a2</component>
+        <suites>2.xml</suites>
+    </item>
+    <item-group parallel="true">
+        <item>
+            <name>3</name>
+            <component>g.r:a3</component>
+            <suites>3.xml,4.xml</suites>
+            <groups>acceptance</groups>
+        </item>
+        <item-group>
+            <item stop-on-fail="true" timeout-in-seconds="456">
+                <name>4</name>
+                <component>g.r:a1</component>
+                <suites>5.xml</suites>
+                <groups>acceptance</groups>
+            </item>
+            <item>
+                <name>5</name>
+                <component>g.r:a2</component>
+                <suites>6.xml,7.xml,8.xml</suites>
+            </item>
+        </item-group>
+    </item-group>
+    <item>
+        <name>6</name>
+        <component>g.r:a3</component>
+        <suites>9.xml</suites>
+    </item>
+</schedule>

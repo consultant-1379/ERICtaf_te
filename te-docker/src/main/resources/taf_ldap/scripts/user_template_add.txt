@@ -1,0 +1,17 @@
+dn: uid=USER_NAME,ou=People,dc=agat,dc=enm,dc=org
+changetype: TYPE
+uid: USER_NAME
+cn: USER_NAME
+objectClass: account
+objectClass: posixAccount
+objectClass: top
+objectClass: shadowAccount
+userPassword: USER_PASSWORD
+shadowLastChange: 17813
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/bash
+uidNumber: UID_NUMBER
+gidNumber: GID_NUMBER
+homeDirectory: /home/USER_NAME

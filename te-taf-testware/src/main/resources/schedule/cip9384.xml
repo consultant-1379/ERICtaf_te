@@ -1,0 +1,7 @@
+<schedule>
+    <item>
+        <name>cip9384</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>cip9384.xml</suites>
+    </item>
+</schedule>

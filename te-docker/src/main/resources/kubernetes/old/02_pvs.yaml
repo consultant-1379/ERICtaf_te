@@ -1,0 +1,28 @@
+---
+apiVersion: "v1"
+kind: "List"
+items:
+  - apiVersion: "v1"
+    kind: "PersistentVolume"
+    metadata:
+      name: "te-pv-jenkins"
+    spec:
+      accessModes:
+        - ReadWriteMany
+      capacity:
+        storage: 900Mi
+      hostPath:
+        path: "/var/te_data/taf-te-jenkins"
+
+  - apiVersion: "v1"
+    kind: "PersistentVolume"
+    metadata:
+      name: "te-logs"
+    spec:
+      accessModes:
+        - ReadWriteMany
+      capacity:
+        storage: 900Mi
+      hostPath:
+        path: "/var/te_data/taf-te-logs"
+

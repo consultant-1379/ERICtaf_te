@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+</head>
+<body>
+    Define a non-zero value to define how many days to keep old TE data:
+    <ul>
+    <li>
+    <b><a target="_blank" href="https://wiki.jenkins-ci.org/display/JENKINS/Build+Flow+Plugin">Build Flow</a> projects</b>,
+        each of which gets created when a new TE job is scheduled. Such project has only one build, and this is the
+        limitation of the Build Flow plugin. So if the tests run often, Jenkins workspace gets quickly filled up with
+        the Build Flow projects. The current setting will define the max lifetime of build flow projects, after that
+        time they will get erased.</li>
+        <li><b>Test run data</b>. When each schedule item is executed, it's forking a Maven process for appropriate tests execution.
+        To limit the amount of disk space used, the current setting will define, how many days those temporary directories
+            (seen in TAF_EXECUTOR project's workspace) shall remain</li>
+    </ul>
+</body>
+</html>

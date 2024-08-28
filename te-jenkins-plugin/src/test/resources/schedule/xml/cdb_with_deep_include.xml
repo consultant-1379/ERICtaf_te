@@ -1,0 +1,3 @@
+<schedule>
+    <include>g.r:s1/cdb_with_include.xml</include>
+</schedule>

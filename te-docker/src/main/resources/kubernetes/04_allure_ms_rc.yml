@@ -1,0 +1,27 @@
+---
+apiVersion: "v1"
+kind: "List"
+items:
+
+  - apiVersion: "v1"
+    kind: "ReplicationController"
+    metadata:
+      name: "allure-ms-replication"
+      namespace: "taf-te"
+      labels:
+        name: "allure-ms-replication"
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          name: "allure-ms-tpl"
+          labels:
+            name: "allure-ms-tpl"
+        spec:
+          imagePullSecrets:
+            - name: "armdocker.rnd.ericsson.se"
+          containers:
+            - name: "allure-service-container"
+              image: "armdocker.rnd.ericsson.se/proj_allure_service/allure-service"
+              ports:
+                - containerPort: 8080

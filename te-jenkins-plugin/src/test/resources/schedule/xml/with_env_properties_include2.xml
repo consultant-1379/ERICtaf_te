@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <env-properties>
+        <property type="system" key="systemOption1">systemOption1Include2GlobalValue</property>
+    </env-properties>
+
+    <item>
+        <name>5</name>
+        <component>g.r:a1:1.0</component>
+        <suites>5.xml</suites>
+    </item>
+    <include>g.r:s1/with_env_properties_include21.xml</include>
+</schedule>

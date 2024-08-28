@@ -1,0 +1,373 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ericsson.cifwk.taf.executor</groupId>
+    <artifactId>te-bom</artifactId>
+    <version>2.70.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <duraci-shared.version>30.0.3</duraci-shared.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <jolokia.version>1.2.0</jolokia.version>
+        <taf.version>2.37.1</taf.version>
+        <scheduler.version>1.0.1</scheduler.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <junit.version>4.13</junit.version>
+        <mockito.version>1.9.5</mockito.version>
+        <joda.version>2.4</joda.version>
+        <gson.version>2.8.5</gson.version>
+        <zt-zip.version>1.11</zt-zip.version>
+
+        <!-- Jenkins plugins -->
+        <buildflow-plugin.version>0.20</buildflow-plugin.version>
+        <swarm-plugin.version>3.4</swarm-plugin.version>
+        <kubernetes-plugin.version>0.12</kubernetes-plugin.version>
+
+    </properties>
+
+    <!-- define project modules here as managed for BOM -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.ericsson.duraci</groupId>
+                <artifactId>messaging</artifactId>
+                <version>${duraci-shared.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>dom4j</groupId>
+                        <artifactId>dom4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.ericsson.duraci</groupId>
+                <artifactId>types</artifactId>
+                <version>${duraci-shared.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>18.0</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-shared</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-node</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-node-swarm</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-taf-plugin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-internal-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-remote-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-remote-api-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-runtime</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>taf-scheduler-rest-client</artifactId>
+                <version>${scheduler.version}</version>
+            </dependency>
+
+            <!-- Retrofit REST client -->
+            <dependency>
+                <groupId>com.squareup.retrofit</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>2.0.0-beta2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.retrofit</groupId>
+                <artifactId>converter-gson</artifactId>
+                <version>2.0.0-beta2</version>
+            </dependency>
+
+            <!-- TAF -->
+            <!-- Needed in TE slave only for the HTTP config property name in TAF -->
+            <dependency>
+                <groupId>com.ericsson.cifwk.taf</groupId>
+                <artifactId>taf-configuration</artifactId>
+                <version>${taf.version}</version>
+            </dependency>
+            <!-- Needed in te-test-utils -->
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>data-handler</artifactId>
+                <version>${taf.version}</version>
+            </dependency>
+            <!-- Needed for TafPlugin extension -->
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>taf-core</artifactId>
+                <version>${taf.version}</version>
+            </dependency>
+            <!-- Used in plugin's itests -->
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>itest-commons</artifactId>
+                <version>${taf.version}</version>
+            </dependency>
+            <!-- Used to generate fake suites on build interruption -->
+            <dependency>
+                <groupId>com.ericsson.cifwk.taf</groupId>
+                <artifactId>taf-allure-suite-generator</artifactId>
+                <version>${taf.version}</version>
+            </dependency>
+            <!-- / TAF -->
+
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-client-java</artifactId>
+                <version>${jolokia.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.httpcomponents</groupId>
+                        <artifactId>httpclient-osgi</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.simpleframework</groupId>
+                <artifactId>simple-xml</artifactId>
+                <version>2.7.1</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.shared</groupId>
+                <artifactId>maven-invoker</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>zt-zip</artifactId>
+                <version>${zt-zip.version}</version>
+            </dependency>
+
+            <!-- COMMONS -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.5</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-configuration</groupId>
+                <artifactId>commons-configuration</artifactId>
+                <version>1.10</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.13</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.9.3</version>
+            </dependency>
+
+            <!-- TESTING -->
+
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>ui-taf-sdk</artifactId>
+                <version>${taf.version}</version>
+                <type>pom</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>testng-runner</artifactId>
+                <version>${taf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>te-test-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${hamcrest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>${hamcrest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.stefanbirkner</groupId>
+                <artifactId>system-rules</artifactId>
+                <version>1.16.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit-dep</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.8.0</version>
+            </dependency>
+
+            <!-- LOGGING: LOG4J,SLF4J -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- JENKINS dependencies -->
+            <dependency>
+                <groupId>com.cloudbees.plugins</groupId>
+                <artifactId>build-flow-plugin</artifactId>
+                <version>${buildflow-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jenkins-ci.plugins</groupId>
+                <artifactId>swarm</artifactId>
+                <version>${swarm-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jenkins-ci.plugins</groupId>
+                <artifactId>swarm-client</artifactId>
+                <version>${swarm-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.csanchez.jenkins.plugins</groupId>
+                <artifactId>kubernetes</artifactId>
+                <version>${kubernetes-plugin.version}</version>
+                <!-- We don't package it, it's embedded in TE grid master Docker image
+                'optional' means that the plugin will be available only locally when TE plugin is run via hpi:run -->
+                <optional>true</optional>
+            </dependency>
+
+            <!-- Freemarker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.29</version>
+            </dependency>
+
+            <!-- Required by Ericsson 3pp software rules (Bazaar) -->
+            <dependency>
+                <groupId>xpp3</groupId>
+                <artifactId>xpp3</artifactId>
+                <version>1.1.4c</version>
+            </dependency>
+            <dependency>
+                <groupId>com.rabbitmq</groupId>
+                <artifactId>amqp-client</artifactId>
+                <version>3.6.0</version>
+            </dependency>
+            <dependency>
+                <groupId>args4j</groupId>
+                <artifactId>args4j</artifactId>
+                <version>2.0.31</version>
+            </dependency>
+            <!-- / Required by Ericsson 3pp software rules (Bazaar) -->
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Releases</name>
+            <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Snapshots</name>
+            <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

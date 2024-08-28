@@ -1,0 +1,21 @@
+[
+    {
+        "hostname": "selenium_grid",
+        "ip": "141.137.235.254",
+        "type": "SELENIUM_GRID",
+        "users": [
+            {"username": "root", "password": "shroot", "type": "admin"}
+        ],
+        "ports": {"http": 4444}
+    },
+    {
+        "hostname": "host_for_profile_tests",
+        "ip": "default_ip",
+        "type": "UNKNOWN",
+        "users": [
+            {"username": "root", "password": "shroot", "type": "admin"}
+        ],
+        "ports": {"http": 1111}
+    }
+
+]

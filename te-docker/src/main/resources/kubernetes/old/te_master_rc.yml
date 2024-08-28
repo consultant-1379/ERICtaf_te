@@ -1,0 +1,47 @@
+---
+apiVersion: "v1"
+kind: "List"
+items:
+
+  - apiVersion: "v1"
+    kind: "ReplicationController"
+    metadata: 
+      name: "te-jenkins-replication"
+      namespace: "taf-te"
+      labels: 
+        name: "te-jenkins-replication"
+    spec: 
+      replicas: 1
+      template: 
+        metadata: 
+          name: "jenkins-tpl"
+          labels: 
+            name: "jenkins-tpl"
+        spec: 
+          imagePullSecrets:
+            - name: "armdocker.rnd.ericsson.se"
+          containers:
+            - name: "te-master-container"
+              image: "armdocker.rnd.ericsson.se/proj_taf_te/taf_te_master:2.4"
+              args: ["--prefix=/jenkins/", "--message-bus-host=te-mb-service"]
+              ports:
+                - containerPort: 8080
+                - containerPort: 50000
+              volumeMounts: 
+                - name: "local-te-pv-jenkins"
+                  mountPath: "/var/jenkins_home"
+                - name: "local-te-logs"
+                  mountPath: "/var/log/te_logs"
+              livenessProbe:
+                httpGet:
+                  path: /jenkins/
+                  port: 8080
+                initialDelaySeconds: 60
+                timeoutSeconds: 5
+          volumes:
+            - name: "local-te-pv-jenkins"
+              persistentVolumeClaim:
+                claimName: "te-pv-jenkins-claim"
+            - name: "local-te-logs"
+              persistentVolumeClaim:
+                claimName: "te-logs-claim"

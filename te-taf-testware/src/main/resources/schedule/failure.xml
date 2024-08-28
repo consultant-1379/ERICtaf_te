@@ -1,0 +1,7 @@
+<schedule>
+    <item>
+        <name>1</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>failure.xml</suites>
+    </item>
+</schedule>

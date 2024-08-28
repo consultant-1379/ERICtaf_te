@@ -1,0 +1,2 @@
+com.ericsson.cifwk.taf.executor.node.cleanup.TestDataCleanupTask
+com.ericsson.cifwk.taf.executor.node.cleanup.TmpDataCleanupTask

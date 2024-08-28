@@ -1,0 +1,14 @@
+<schedule>
+    <item-group parallel="true">
+        <item>
+            <name>1</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-perf-testware:1.0.18-SNAPSHOT</component>
+            <suites>mb_stress_test1.xml</suites>
+        </item>
+        <item>
+            <name>2</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-perf-testware:1.0.18-SNAPSHOT</component>
+            <suites>mb_stress_test2.xml</suites>
+        </item>
+    </item-group>
+</schedule>

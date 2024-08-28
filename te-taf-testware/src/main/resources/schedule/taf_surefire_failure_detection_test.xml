@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <!-- Every entry here must fail -->
+
+    <item-group parallel="true">
+        <item>
+            <name>Missing suite</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>no_such_suite.xml</suites>
+        </item>
+        <item>
+            <name>1 of 2 suites is missing</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>success.xml, no_such_suite.xml</suites>
+        </item>
+        <item>
+            <name>Only one test but disabled</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>one_disabled_test.xml</suites>
+        </item>
+        <item>
+            <name>Before suite config fails</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>before_suite_fails.xml</suites>
+        </item>
+        <item>
+            <name>After suite config fails</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>after_suite_fails.xml</suites>
+        </item>
+        <item>
+            <name>Before method config fails</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>before_method_fails.xml</suites>
+        </item>
+        <item>
+            <name>After method config fails</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>after_method_fails.xml</suites>
+        </item>
+        <item>
+            <name>Before class config fails</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>before_class_fails.xml</suites>
+        </item>
+        <item>
+            <name>After class config fails</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>after_class_fails.xml</suites>
+        </item>
+    </item-group>
+</schedule>

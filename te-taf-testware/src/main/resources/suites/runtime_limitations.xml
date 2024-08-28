@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="runtime_limitations">
+    <test name="ThreadCreationTests">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.threads.ThreadCreatingTest"/>
+        </classes>
+    </test>
+</suite>

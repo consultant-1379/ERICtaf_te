@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item-group parallel="true">
+        <item>
+            <name>Test data overriding checking</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>property_overriding_test.xml,host_overriding_test.xml</suites>
+            <env-properties>
+                <!-- This suite definition has to be ignored. Will fail tests execution if won't -->
+                <property type="system" key="suites">noSuchSuite.xml</property>
+                <property type="system" key="taf.profiles">a</property>
+                <property type="system" key="my.property.expectedValue">profile_A_Value</property>
+                <property type="system" key="host.host_for_profile_tests.expectedIp">profile.a.ip</property>
+            </env-properties>
+        </item>
+        <item>
+            <name>JVM settings tests</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>memory_tests.xml</suites>
+            <env-properties>
+                <property type="jvm" key="options">-verbose:class -Xms3G -Xmx3G</property>
+                <property type="system" key="runtime.totalMemory.expectedMinInBytes">1000000000</property>
+                <property type="system" key="runtime.maxMemory.expectedMinInBytes">3000000000</property>
+            </env-properties>
+        </item>
+    </item-group>
+
+</schedule>

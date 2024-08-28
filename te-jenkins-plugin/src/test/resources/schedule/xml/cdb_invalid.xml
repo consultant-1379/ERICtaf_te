@@ -1,0 +1,7 @@
+<schedule>
+    <item>
+        <name>1</name>
+        <component>$invalid$</component>
+        <suite>BsimTempSuite.xml</suite>
+    </item>
+</schedule>

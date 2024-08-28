@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TePerfTest2">
+    <parameter name="taf.vusers" value="5"/>
+    <test name="TePerfTest2">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.TafDocsTest"/>
+        </classes>
+    </test>
+</suite>

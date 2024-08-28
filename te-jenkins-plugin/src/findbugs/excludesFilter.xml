@@ -1,0 +1,10 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="com.ericsson.cifwk.taf.executor.cluster.TeNodeDiskAvailabilityCheck" />
+        <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME" />
+    </Match>
+    <Match>
+        <Class name="com.ericsson.cifwk.taf.executor.schedule.FlowExecutor" />
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+    </Match>
+</FindBugsFilter>

@@ -1,0 +1,7 @@
+<schedule>
+    <item>
+        <name>1</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-perf-testware:1.0.18-SNAPSHOT</component>
+        <suites>mb_stress_test_single.xml</suites>
+    </item>
+</schedule>

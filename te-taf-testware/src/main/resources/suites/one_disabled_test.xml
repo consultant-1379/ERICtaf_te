@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="oneDisabledTest">
+    <test name="OneDisabledTest">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.OneDisabledTest"/>
+        </classes>
+    </test>
+</suite>

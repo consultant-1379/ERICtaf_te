@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="RunScheduleTest" parallel="false">
+    <test name="RunScheduleTest" parallel="none">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.execution.RabbitMqHealthCheckTest"/>
+            <class name="com.ericsson.cifwk.taf.execution.RunScheduleCITest"/>
+        </classes>
+    </test>
+    <test name="AllureServiceTest" parallel="none">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.execution.AllureServiceTest"/>
+        </classes>
+    </test>
+</suite>

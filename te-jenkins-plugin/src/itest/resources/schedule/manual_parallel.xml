@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item-group parallel="true">
+        <item>
+            <name>Job 4</name>
+            <component>g.r:a1:1.0</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 5</name>
+            <component>g.r:a1:1.0</component>
+            <suites>success.xml</suites>
+        </item>
+        <item>
+            <name>Job 6</name>
+            <component>g.r:a1:1.0</component>
+            <suites>success.xml</suites>
+        </item>
+    </item-group>
+    <manual-item>
+        <test-campaigns>
+            <test-campaign id="373"/>
+        </test-campaigns>
+    </manual-item>
+</schedule>

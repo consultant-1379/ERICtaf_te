@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item>
+        <name>1</name>
+        <component>g.r:a1:1.0</component>
+        <suites>1.xml</suites>
+        <agentLabel>taf</agentLabel>
+    </item>
+    <item>
+        <name>2</name>
+        <component>g.r:a1:1.0</component>
+        <suites>2.xml</suites>
+        <agentLabel>uber</agentLabel>
+    </item>
+    <item>
+        <name>3</name>
+        <component>g.r:a1:1.0</component>
+        <suites>3.xml</suites>
+    </item>
+</schedule>

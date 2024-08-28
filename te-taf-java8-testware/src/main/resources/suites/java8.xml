@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="java8Tests">
+    <test name="Java8Test1">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.sampletests.Java8Test"/>
+        </classes>
+    </test>
+</suite>

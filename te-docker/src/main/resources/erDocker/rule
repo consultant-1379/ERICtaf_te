@@ -1,0 +1,28 @@
+declare EiffelMessage @role(event) @expires( 1m ) end
+declare EiffelEvent @role(event) @expires( 1m ) end
+
+rule "Store and log all received Eiffel Messages"
+     when
+         m : EiffelMessage()
+     then
+        log.info("RULE ENGINE RECEIVED: " + m.getEventType());
+         datastore.store(m);
+end
+
+rule "Create new Artifact"
+    when
+       m : EiffelMessage(eventType=="EiffelArtifactNewEvent")
+    then
+       EiffelArtifactNewEvent event = (EiffelArtifactNewEvent)m.getEvent();
+       log.info("Artifact new event received: " + event.toString());
+       datastore.createArtifact(m);
+end
+
+rule "Update Artifact on new confidence level"
+    when
+       m : EiffelMessage(eventType=="EiffelConfidenceLevelModifiedEvent")
+    then
+       EiffelConfidenceLevelModifiedEvent event = (EiffelConfidenceLevelModifiedEvent)m.getEvent();
+       log.info("Confidence level event received: " + event.toString());
+       datastore.updateArtifactConfidenceLevel(m);
+end

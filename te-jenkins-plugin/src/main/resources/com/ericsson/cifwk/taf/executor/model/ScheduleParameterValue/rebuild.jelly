@@ -1,0 +1,51 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
+	xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
+    <j:set var="build" value="${request.findAncestorObject(buildClass)}" />
+    <f:entry title="${it.name}" description="${it.description}" help="${it.descriptor.getHelpFile(it.name.toLowerCase())}">
+        <div name="parameter" description="${it.description}">
+            <input type="hidden" name="name" value="${it.name}" />
+            <f:textarea name="value" value="${it.value}" id="parameter-${it.name}"/>
+        </div>
+    </f:entry>
+            <f:entry>
+                <div style="float:right">
+                    <input type="button" value="${%Receive schedule}" class="yui-button validate-button" onclick="onReceiveSchedule(this)" />
+                    <script>
+                        function onReceiveSchedule(button) {
+                        button = button._button;
+                        var parameters = {};
+                        parameters['REPOSITORY_URL'] = $('parameter-REPOSITORY_URL').value;
+                        parameters['SCHEDULE_ARTIFACT'] = $('parameter-SCHEDULE_ARTIFACT').value;
+                        parameters['SCHEDULE_NAME'] = $('parameter-SCHEDULE_NAME').value;
+                        var spinner = $(button).up("DIV").next();
+                        var target = spinner.next();
+                        spinner.style.display="block";
+                        new Ajax.Request('../resolveSchedule', {
+                        parameters: parameters,
+                        onComplete: function(rsp) {
+                        spinner.style.display="none";
+                        var i;
+                        if (rsp.status==200) {
+                        $('parameter-SCHEDULE').value = rsp.responseText;
+                        target.innerHTML = '';
+                        } else {
+                        target.innerHTML = '<a href="" onclick="document.getElementById(\'valerr' + (i=iota++)
+                                    + '\').style.display=\'block\';return false">ERROR</a><div id="valerr'
+                                    + i + '" style="display:none">' + rsp.responseText + '</div>';
+                        }
+                        Behaviour.applySubtree(target);
+                        layoutUpdateCallback.call();
+                        }
+                        });
+                        }
+                    </script>
+                </div>
+                <div style="display:none;" id="spinner-${it.name}">
+                    <img src="${imagesURL}/spinner.gif" /> ${%Receive schedule...}
+                </div>
+                <div id="messages-${it.name}"><!-- this is where the error message goes --></div>
+            </f:entry>
+</j:jelly>
+
+

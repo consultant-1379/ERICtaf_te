@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item>
+        <name>Included</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware:1.2</component>
+        <suites>three.xml</suites>
+        <groups>performance,stress</groups>
+    </item>
+
+    <include>urn:taf-scheduler:777</include>
+
+</schedule>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item-group>
+        <item>
+            <name>1</name>
+            <component>g.r:a1:1.0</component>
+            <suites>1.xml</suites>
+        </item>
+        <item>
+            <name>2</name>
+            <component>g.r:a1:1.0</component>
+            <suites>2.xml</suites>
+        </item>
+        <item-group>
+            <item>
+                <name>21</name>
+                <component>g.r:a1:1.0</component>
+                <suites>21.xml</suites>
+            </item>
+        </item-group>
+    </item-group>
+    <include>g.r:s1/with_manual_items_include1.xml</include>
+
+    <item>
+        <name>3</name>
+        <component>g.r:a1:1.0</component>
+        <suites>3.xml</suites>
+    </item>
+    <manual-item>
+        <test-campaigns>
+            <test-campaign id="2"/>
+            <test-campaign id="1"/>
+        </test-campaigns>
+    </manual-item>
+
+</schedule>

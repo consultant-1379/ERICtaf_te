@@ -1,0 +1,54 @@
+# Compiled source #
+*.class
+*/bin/*
+
+# Eclipse files
+.project
+.classpath
+.settings
+.metadata
+
+# IntelliJ IDEA files
+.idea
+*.iws
+*.ipr
+*.iml
+
+# Test output files
+*/test-output/*
+/test-output/
+/test-output
+test-output/
+test-output/**/*
+*/test-output/**/*
+
+# Packages
+*.jar
+*.rpm
+
+# Vagrant
+.vagrant
+
+# Maven build files
+target
+reports
+application.properties
+dependency-reduced-pom.xml
+*.versionsBackup
+*.releaseBackup
+release.properties
+
+# PMD
+.pmd
+
+# Merge files
+*.orig
+
+#tmp irectories
+tmp/
+test-output/
+workspace/
+
+# Windows binaries
+*.exe
+*.dll

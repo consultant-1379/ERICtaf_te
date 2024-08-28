@@ -1,0 +1,6 @@
+<slave>
+    <remoteFS>/home/jenkins</remoteFS>
+    <numExecutors>${EXECUTOR_COUNT}</numExecutors>
+    <launcher class="hudson.slaves.JNLPLauncher" />
+    <label>${AGENT_LABEL}</label>
+</slave>

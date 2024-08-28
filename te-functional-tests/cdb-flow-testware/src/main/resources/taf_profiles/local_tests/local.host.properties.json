@@ -1,0 +1,34 @@
+[
+    {
+        "hostname": "te_master",
+        "ip": "localhost",
+        "type": "UNKNOWN",
+        "ports": {
+            "http": 8091,
+            "ssh": 22
+        },
+        "users": [
+            {
+                "username": "root",
+                "password": "shroot",
+                "type": "admin"
+            }
+        ]
+    },
+    {
+        "hostname": "te_slave",
+        "ip": "localhost",
+        "type": "UNKNOWN",
+        "ports": {
+            "ssh": 22
+        },
+        "users": [
+            {
+                "username": "root",
+                "password": "shroot",
+                "type": "admin"
+            }
+        ]
+    }
+
+]

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <env-properties>
+        <property type="system" key="systemOption1">systemOption1GlobalValue</property>
+        <property type="maven" key="maven_opts">-Xms1024m -Xmx4096m -XX:PermSize=1024m</property>
+    </env-properties>
+
+    <item-group>
+        <env-properties>
+            <property type="system" key="systemOption1">systemOption1ItemGroupValue</property>
+            <property type="jvm" key="version">7</property>
+        </env-properties>
+        <item>
+            <name>1</name>
+            <component>g.r:a1:1.0</component>
+            <suites>1.xml</suites>
+        </item>
+        <item>
+            <name>2</name>
+            <component>g.r:a1:1.0</component>
+            <suites>2.xml</suites>
+            <env-properties>
+                <property type="jvm" key="version">8</property>
+            </env-properties>
+        </item>
+        <include>g.r:s1/with_env_properties_include1.xml</include>
+    </item-group>
+
+    <include>g.r:s1/with_env_properties_include2.xml</include>
+
+    <item>
+        <name>3</name>
+        <component>g.r:a1:1.0</component>
+        <suites>3.xml</suites>
+    </item>
+</schedule>

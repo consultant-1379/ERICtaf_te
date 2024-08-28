@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://taf.lmera.ericsson.se/schema/te"
+           targetNamespace="http://taf.lmera.ericsson.se/schema/te">
+    <xs:element name="schedule" type="tns:ScheduleNode">
+        <xs:unique name="UniqueItemName">
+            <xs:selector xpath="tns:item|tns:item-group/tns:item"/>
+            <xs:field xpath="tns:name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:simpleType name="StringLabel">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ScheduleNode">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="item" type="tns:ItemNode"/>
+            <xs:element name="item-group" type="tns:ItemGroupNode"/>
+            <xs:element name="include">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="([\w_-]+(\.[\w_-]+)*:[\w_-]+:?[0-9]?([\.0-9])*/.*)|(urn:taf\-scheduler:([0-9]*))"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="manual-item" type="tns:ManualItemNode" minOccurs="0"/>
+            <xs:element name="env-properties" type="tns:PropertyNode" nillable="true"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="ItemNode">
+        <xs:sequence>
+            <xs:element name="name" type="tns:StringLabel"/>
+            <xs:element name="component">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[\w_-]+(\.[\w_-]+)*:[\w_-]+:?(LATEST|([0-9]?([\.0-9])*).*[-SNAPSHOT]?|RELEASE)"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="suites" type="xs:string"/>
+            <xs:choice minOccurs="0" maxOccurs="1">
+                <!-- Deprecated in favor of 'tags' -->
+                <xs:element name="groups" type="xs:string"/>
+                <xs:element name="tags" type="xs:string"/>
+            </xs:choice>
+            <!-- Optional label for TE agent -->
+            <xs:element name="agentLabel" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="taf|uber"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="env-properties" type="tns:PropertyNode" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="stop-on-fail" type="xs:boolean"/>
+        <xs:attribute name="timeout-in-seconds" type="xs:int"/>
+    </xs:complexType>
+    <xs:complexType name="ItemGroupNode">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="env-properties" type="tns:PropertyNode" minOccurs="0"/>
+                <xs:element name="item" type="tns:ItemNode"/>
+                <xs:element name="item-group" type="tns:ItemGroupNode"/>
+                <xs:element name="include">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="([\w_-]+(\.[\w_-]+)*:[\w_-]+:?[0-9]?([\.0-9])*/.*)|(urn:taf\-scheduler:([0-9]*))"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="parallel" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="PropertyNode">
+        <xs:sequence>
+            <xs:element name="property" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string" use="required"/>
+                            <xs:attribute name="key" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ManualItemNode">
+        <xs:sequence>
+            <xs:element name="test-campaigns" type="tns:TestCampaignsNode"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TestCampaignsNode">
+        <xs:sequence>
+            <xs:element name="test-campaign" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="id" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,17 @@
+[
+  {
+    "hostname": "host_for_profile_tests",
+    "ip": "profile.a.ip",
+    "type": "UNKNOWN",
+    "users": [
+      {"username": "root", "password": "shroot", "type": "admin"}
+    ],
+    "ports": {"http": 1111}
+  },
+  {
+    "hostname": "profile.a.host",
+    "ip": "exist",
+    "type": "UNKNOWN",
+    "ports":{}
+  }
+]

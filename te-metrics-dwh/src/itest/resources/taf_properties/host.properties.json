@@ -1,0 +1,31 @@
+[
+    {
+        "hostname": "tm_test",
+        "ip": "atclvm791.athtem.eei.ericsson.se",
+        "type": "UNKNOWN",
+        "users": [
+            {"username": "root", "password": "shroot", "type": "admin"},
+            {"username": "taf", "password": "taf", "type": "web"},
+            {"username": "unknown", "password": "unknown", "type": "web"}
+        ],
+        "ports": {"http": 80, "ssh": 22}
+    },
+    {
+        "hostname": "tm_localhost",
+        "ip": "127.0.0.1",
+        "type": "UNKNOWN",
+        "users": [
+            {"username": "root", "password": "shroot", "type": "admin"}
+        ],
+        "ports": {"http": 8080}
+    },
+    {
+        "hostname": "rabbitmq",
+        "ip": "atvts3372.athtem.eei.ericsson.se",
+        "type": "rabbitmq",
+        "users": [
+            {"username": "guest", "password": "guest"}
+        ],
+        "ports": {"amqp": 5672}
+    }
+]

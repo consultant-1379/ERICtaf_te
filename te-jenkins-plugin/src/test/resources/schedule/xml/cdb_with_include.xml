@@ -1,0 +1,8 @@
+<schedule>
+    <item>
+        <name>1</name>
+        <component>g.r:a2:1.1</component>
+        <suites>2.xml</suites>
+    </item>
+    <include>g.r:s1/cdb_for_inclusion.xml</include>
+</schedule>

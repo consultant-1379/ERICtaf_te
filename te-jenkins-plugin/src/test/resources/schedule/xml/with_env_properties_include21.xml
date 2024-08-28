@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <env-properties>
+        <property type="system" key="systemOption2">systemOption2Value</property>
+        <property type="maven" key="defaultFlags">-O -U</property>
+    </env-properties>
+
+    <item>
+        <name>6</name>
+        <component>g.r:a1:1.0</component>
+        <suites>6.xml</suites>
+    </item>
+    <item>
+        <name>7</name>
+        <component>g.r:a1:1.0</component>
+        <suites>7.xml</suites>
+        <env-properties>
+            <property type="maven" key="defaultFlags">skipTests</property>
+        </env-properties>
+    </item>
+</schedule>

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item-group parallel="true">
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+        <item>
+            <name>TAF Executor</name>
+            <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+            <suites>poll_jenkins_master.xml</suites>
+        </item>
+    </item-group>
+</schedule>

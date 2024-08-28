@@ -1,0 +1,21 @@
+version: '2.1'
+
+# Start TE based on docker images from docker registry, Allure report will be hosted locally on https://${HOSTNAME}:443 and http://${HOSTNAME}:8088
+# Note: No image will be built, all images will be downloaded if not already available locally.
+# Note: Don't forget to set the following environment variables if you are not using the "dockerized_te.sh script:
+#       HOSTNAME          e.g. 'export HOSTNAME=159.107.166.146'
+#       EXECUTOR_COUNT    e.g. 'export EXECUTOR_COUNT=4'
+#       MAVEN_OFFLINE     e.g. 'export MAVEN_OFFLINE=true'
+
+services:
+  taf_ldap:
+    image:  taf_ldap:${project.version}
+    container_name: "taf_ldap"
+    ports:
+    - "3689:389"
+    volumes:
+    - /etc/openldap:/etc/ldap
+    - /var/lib/ldap/:/var/lib/ldap
+    - /etc/ldap/prepopulate/:/etc/ldap.dist/prepopulate
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro

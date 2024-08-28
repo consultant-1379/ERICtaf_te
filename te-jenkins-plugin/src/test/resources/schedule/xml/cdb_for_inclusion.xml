@@ -1,0 +1,12 @@
+<schedule>
+    <item stop-on-fail="true">
+        <name>1</name>
+        <component>g.r:a1:1.0</component>
+        <suites>1.xml</suites>
+    </item>
+    <item timeout-in-seconds="789">
+        <name>2</name>
+        <component>g.r:a2:1.1</component>
+        <suites>3.xml</suites>
+    </item>
+</schedule>

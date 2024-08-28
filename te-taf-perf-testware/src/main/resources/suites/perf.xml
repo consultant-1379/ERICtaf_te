@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="perf">
+    <parameter name="taf.repeat-count" value="10000"/>
+    <parameter name="taf.think-time" value="100"/>
+    <parameter name="taf.vusers" value="5"/>
+    <test name="PerformanceTest">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.PerformanceTest"/>
+        </classes>
+    </test>
+</suite>

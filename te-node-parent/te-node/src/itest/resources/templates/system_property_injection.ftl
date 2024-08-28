@@ -1,0 +1,24 @@
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>properties-maven-plugin</artifactId>
+    <version>1.0-alpha-2</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>set-system-properties</goal>
+            </goals>
+            <configuration>
+                <properties>
+                    <property>
+                        <name>taf.tms.api.test-case</name>
+                        <value>http://localhost:${port}/tm-server/api/test-cases/%s</value>
+                    </property>
+                    <property>
+                        <name>taf.tms.api.test-plan</name>
+                        <value>http://localhost:${port}/tm-server/api/test-campaigns/%s</value>
+                    </property>
+                </properties>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>

@@ -1,0 +1,12 @@
+<schedule>
+    <item>
+        <name>1</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>success.xml</suites>
+    </item>
+    <item timeout-in-seconds="180">
+        <name>2</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>endless_loop.xml</suites>
+    </item>
+</schedule>

@@ -1,0 +1,53 @@
+version: '2.1'
+
+# This file is used for provisioning the TE test bed (without slaves) it is not recommended to be used for any other purpose.
+# Note: No image will be built, all images will be downloaded if not already available locally.
+
+services:
+  taf_te_message_bus:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_message_bus:${project.version}
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  taf_te_master:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_master:${project.version}
+    ports:
+      - "50000:50000"
+      - "8080:8080"
+    command: --prefix=/jenkins/ --external-jenkins-address=http://${HOSTNAME}:8080/jenkins/
+    volumes:
+      - /var/log/te_logs:/var/log/te_logs
+    links:
+    - taf_te_message_bus
+    depends_on:
+    - taf_te_message_bus
+  taf_te_slave1:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_slave:${project.version}
+    command: --te-master-address=http://${HOSTNAME}:8080/jenkins/ --executor-count=4 --create-jenkins-node=true --agent-name=jnlp-1
+    volumes:
+      - /var/log/te_logs:/var/log/te_logs
+    expose:
+      - "22"
+    depends_on:
+      - taf_te_master
+  taf_te_slave2:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_slave:${project.version}
+    command: --te-master-address=http://${HOSTNAME}:8080/jenkins/ --executor-count=4 --create-jenkins-node=true --agent-name=jnlp-2
+    volumes:
+      - /var/log/te_logs:/var/log/te_logs
+    expose:
+      - "22"
+    depends_on:
+      - taf_te_master
+  mongo1:
+    build: ../mongoDocker
+    hostname: mongo1
+    ports:
+    - "30001:27017"
+    command: /initReplicas.sh
+  er:
+    build: ../erDocker
+    ports:
+    - "8088:8080"
+    depends_on:
+    - mongo1

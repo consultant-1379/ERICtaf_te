@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+    ${%body}     <!-- see: body in newJobDetail.properties or newJobDetail_{lang-code}.properties-->
+</div>

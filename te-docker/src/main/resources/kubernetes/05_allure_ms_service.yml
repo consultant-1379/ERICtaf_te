@@ -1,0 +1,21 @@
+---
+apiVersion: "v1"
+kind: "List"
+items:
+
+  - apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      name: "allure-service"
+      namespace: "taf-te"
+    spec:
+      type: "NodePort"
+      selector:
+        name: "allure-ms-tpl"
+      ports:
+        -
+          name: "http"
+          port: 80
+          targetPort: 8080
+          nodePort: 30200
+          protocol: "TCP"

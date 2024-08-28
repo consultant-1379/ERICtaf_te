@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="success2">
+    <test name="SuccessTest2">
+        <classes>
+            <class name="com.ericsson.cifwk.taf.Success2Test"/>
+        </classes>
+    </test>
+</suite>

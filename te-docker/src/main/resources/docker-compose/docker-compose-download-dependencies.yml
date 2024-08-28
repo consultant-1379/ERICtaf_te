@@ -1,0 +1,57 @@
+version: '2.1'
+
+# Start TE based on docker images from docker registry for the purpose of downloading testware dependencies.
+# Note: No image will be built, all images will be downloaded if not already available locally.
+# Note: Don't forget to set the following environment variables if you are not using the "dockerized_te.sh script:
+#       HOSTNAME          e.g. 'export HOSTNAME=159.107.166.146'
+#       ARM_URL           e.g. 'export ARM_URL=https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public'
+#       EXECUTOR_COUNT    e.g. 'export EXECUTOR_COUNT=4'
+#       MAVEN_OFFLINE     e.g. 'export MAVEN_OFFLINE=true'
+
+services:
+  taf_te_message_bus:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_message_bus:${project.version}
+    container_name: "taf_te_messagebus"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+  taf_te_master:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_master:${project.version}
+    container_name: "taf_te_master"
+    ports:
+      - "50000:50000"
+      - "8080:8080"
+    command: --prefix=/jenkins/ --external-jenkins-address=http://${HOSTNAME}:8080/jenkins/ --turn-off-reporting=true
+    volumes:
+      - /var/log/te_logs:/var/log/te_logs
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_message_bus
+  taf_te_slave1:
+    image: armdocker.rnd.ericsson.se/proj_taf_te/taf_te_slave:${project.version}
+    container_name: "taf_te_slave1"
+    command: --te-master-address=http://${HOSTNAME}:8080/jenkins/ --executor-count=${EXECUTOR_COUNT} --create-jenkins-node=true --agent-name=taf_te_slave_jnlp-1 --arm_mirror=${ARM_URL} --maven-offline=${MAVEN_OFFLINE}
+    volumes:
+      - /var/log/te_logs:/var/log/te_logs
+      - /tmp/repository:/root/.m2/repository
+      - /tmp/te_maven_test_runs:/tmp/te_maven_test_runs
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "2"
+    depends_on:
+      - taf_te_master

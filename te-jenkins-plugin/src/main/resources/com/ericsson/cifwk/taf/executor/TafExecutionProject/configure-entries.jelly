@@ -1,0 +1,20 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:p="/lib/hudson/project"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="/lib/form https://jenkins-ci.org/maven-site/jenkins-core/taglib-form.xsd">
+
+    <p:config-concurrentBuild />
+    <p:config-assignedLabel />
+
+    <f:advanced>
+        <p:config-trigger/>
+        <p:config-builders/>
+    </f:advanced>
+
+    <f:section title="${%TAF Executor Options}" name="taf-executor-project">
+        <f:entry description="Groovy script to execute after each TAF execution.">
+            <f:textarea name="postProcessingScript" value="${it.postProcessingScript}"/>
+        </f:entry>
+    </f:section>
+
+</j:jelly>

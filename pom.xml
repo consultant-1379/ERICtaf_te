@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson</groupId>
+        <artifactId>master</artifactId>
+        <version>3.0</version>
+        <relativePath />
+    </parent>
+
+    <groupId>com.ericsson.cifwk</groupId>
+    <artifactId>ERICtaf_te</artifactId>
+    <version>2.70.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>TAF Test Executor</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <target.java.version>1.7</target.java.version>
+        <source.java.version>1.7</source.java.version>
+        <!-- -->
+        <taf.version>2.37.1</taf.version>
+        <taf.sdk>all</taf.sdk>
+        <taf-surefire-provider.version>2.31.16</taf-surefire-provider.version>
+        <!-- -->
+        <!-- Integration Testing Support: src/itest -->
+        <test.source>${project.basedir}/src/test/java</test.source>
+        <test.output>${project.build.directory}/test-classes</test.output>
+
+        <maven.site.skip>true</maven.site.skip>
+        <maven.site.deploy.skip>true</maven.site.deploy.skip>
+    </properties>
+
+
+    <repositories>
+        <repository>
+            <id>prototype</id>
+            <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/repositories/prototype</url>
+        </repository>
+    </repositories>
+
+    <modules>
+        <module>te-bom</module>
+        <module>te-taf-testware</module>
+        <module>te-taf-perf-testware</module>
+        <module>te-taf-java8-testware</module>
+        <module>te-internal-utils</module>
+        <module>te-remote-api</module>
+        <module>te-remote-api-client</module>
+        <module>te-test-utils</module>
+        <module>te-shared</module>
+        <module>te-taf-plugin</module>
+        <module>te-jenkins-plugin</module>
+        <module>te-runtime</module>
+        <module>te-node-parent</module>
+        <module>te-puppet-scripts</module>
+        <module>te-functional-tests</module>
+        <module>te-metrics-dwh</module>
+        <module>te-metrics-olap-schema</module>
+        <module>te-test-operators</module>
+        <module>te-legacy-pom-testware</module>
+        <module>te-docs</module>
+        <module>te-docker</module>
+    </modules>
+
+    <scm>
+        <developerConnection>${ericsson.scm.url}/${project.artifactId}</developerConnection>
+        <connection>${ericsson.scm.url}/${project.artifactId}</connection>
+        <tag>ERICtaf_te-2.49.1-SNAPSHOT</tag>
+    </scm>
+
+    <build>
+        <testSourceDirectory>${test.source}</testSourceDirectory>
+        <testOutputDirectory>${test.output}</testOutputDirectory>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>${target.java.version}</source>
+                        <target>${source.java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.3.1</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-plugin-versions</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <fail>false</fail>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>enforce-no-repositories</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <fail>false</fail>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.4.2</version>
+                </plugin>
+                <!-- workaround - tied to older version of plugin because 2.10 does not work with release:perform. Remove once plugin fixed-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.9.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.ericsson.cifwk.taf</groupId>
+                    <artifactId>tafchangelog-maven-plugin</artifactId>
+                    <version>1.0.5</version>
+                    <configuration>
+                        <fullGitMessage>false</fullGitMessage>
+                        <releaseNotesLink />
+                        <multiLineCommitMsgSeparator>*</multiLineCommitMsgSeparator>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.4.13</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <goals>deploy</goals>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.ericsson.cifwk.taf.executor</groupId>
+                <artifactId>te-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>taf-bom</artifactId>
+                <version>${taf.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <!-- Integration Testing Support: src/itest -->
+            <id>itest</id>
+            <properties>
+                <test.source>${project.basedir}/src/itest/java</test.source>
+                <test.output>${project.build.directory}/itest-classes</test.output>
+            </properties>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/itest/resources</directory>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <reportsDirectory>${project.build.directory}/surefire-itest-reports</reportsDirectory>
+                            <testSourceDirectory>${test.source}</testSourceDirectory>
+                            <testOutputDirectory>${test.output}</testOutputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- support SonarQube -->
+            <id>sonar</id>
+            <properties>
+                <sonar.jdbc.url>jdbc:mysql://mysqlpc01:3346/tafsonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true</sonar.jdbc.url>
+                <sonar.jdbc.username>tafsonar</sonar.jdbc.username>
+                <sonar.host.url>https://oss-sonar.lmera.ericsson.se/</sonar.host.url>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>2.3.1</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

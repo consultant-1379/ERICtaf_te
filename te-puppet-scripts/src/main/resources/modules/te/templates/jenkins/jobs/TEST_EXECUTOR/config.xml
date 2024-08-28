@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.ericsson.cifwk.taf.executor.TafExecutionProject>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep><%= deletable_flows_age_in_days %></daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <com.ericsson.cifwk.taf.executor.TafExecutionBuilder/>
+    <com.ericsson.cifwk.taf.executor.TafManualTestExecutionBuilder/>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+  <postProcessingScript/>
+</com.ericsson.cifwk.taf.executor.TafExecutionProject>

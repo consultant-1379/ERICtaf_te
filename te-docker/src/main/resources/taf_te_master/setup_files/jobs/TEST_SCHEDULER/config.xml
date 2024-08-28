@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.ericsson.cifwk.taf.executor.TafScheduleProject plugin="te-jenkins-plugin@1.0.61">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>2</daysToKeep>
+        <numToKeep>-1</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <com.ericsson.cifwk.taf.executor.TafScheduleBuilder/>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+  <reportMbHost>${MESSAGE_BUS_HOST}</reportMbHost>
+  <reportMbPort>5672</reportMbPort>
+  <reportMbUsername>guest</reportMbUsername>
+  <reportMbPassword>guest</reportMbPassword>
+  <reportMbExchange>eiffel.taf.executor</reportMbExchange>
+  <reportMbDomainId>test.execution</reportMbDomainId>
+  <tafJobName>TEST_EXECUTOR</tafJobName>
+  <reportsHost>${ALLURE_REPORTS_HOST}</reportsHost>
+  <localReportsStorage>/var/log/te_logs</localReportsStorage>
+  <reportingScriptsFolder>/opt/log_upload/</reportingScriptsFolder>
+  <uploadToOssLogs>${UPLOAD_TO_OSS_LOGS}</uploadToOssLogs>
+  <minExecutorDiskSpaceGB>2</minExecutorDiskSpaceGB>
+  <minExecutorMemorySpaceGB>15</minExecutorMemorySpaceGB>
+  <allureServiceUrl>${ALLURE_SERVICE_URL}</allureServiceUrl>
+  <allureServiceBackendUrl>${ALLURE_SERVICE_BACKEND_URL}</allureServiceBackendUrl>
+  <allureVersion>1.4.13</allureVersion>
+  <deletableFlowsAgeInDays>1</deletableFlowsAgeInDays>
+  <runtimeLimitations>
+    <maxThreadCount>1000</maxThreadCount>
+  </runtimeLimitations>
+</com.ericsson.cifwk.taf.executor.TafScheduleProject>

@@ -1,0 +1,4 @@
+dn: uid=USER_NAME,ou=People,dc=agat,dc=enm,dc=org
+changetype: TYPE
+replace: userPassword
+userPassword: USER_PASSWORD

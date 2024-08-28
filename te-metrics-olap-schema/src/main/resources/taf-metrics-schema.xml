@@ -1,0 +1,104 @@
+<Schema name="TAF Performance Metrics">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Test">
+    <Hierarchy name="Test Hierarchy" visible="true" hasAll="true" primaryKey="id" primaryKeyTable="test_cases">
+      <Join leftKey="test_suite_id" rightKey="id">
+        <Table name="test_cases">
+        </Table>
+        <Join leftKey="execution_id" rightKey="id">
+          <Table name="test_suites">
+          </Table>
+          <Table name="executions">
+          </Table>
+        </Join>
+      </Join>
+      <Level name="Execution" visible="true" table="executions" column="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Test Suite" visible="true" table="test_suites" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Test Case" visible="true" table="test_cases" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="Time">
+    <Hierarchy name="Time Hierarchy" visible="true" hasAll="true" primaryKey="id">
+      <Table name="time">
+      </Table>
+      <Level name="Day" visible="true" table="time" column="day" type="Date" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+      </Level>
+      <Level name="Hours" visible="true" table="time" column="hour" type="Integer" uniqueMembers="false" levelType="TimeHours" hideMemberIf="Never">
+      </Level>
+      <Level name="Minutes" visible="true" table="time" column="minute" type="Integer" uniqueMembers="false" levelType="TimeMinutes" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Target">
+    <Hierarchy name="Target Hierarchy" visible="true" hasAll="true">
+      <Table name="samples">
+      </Table>
+      <Level name="Protocol" visible="true" table="samples" column="protocol" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="URI" visible="true" table="samples" column="target" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Request Type" visible="true" table="samples" column="request_type" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Request" visible="true" table="samples" column="id" uniqueMembers="false">
+      </Level>
+      <Level name="Response Code" visible="true" table="samples" column="response_code" uniqueMembers="false">
+      </Level>
+      <Level name="Response Timestamp" visible="true" table="samples" column="time_id" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="VUser">
+    <Hierarchy name="VUser Hierarchy" visible="true" hasAll="true">
+      <Table name="samples">
+      </Table>
+      <Level name="VUser" visible="true" table="samples" column="vuser_id" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Performance Testing" visible="true" cache="true" enabled="true">
+    <Table name="samples">
+    </Table>
+    <DimensionUsage source="Test" name="Test" visible="true" foreignKey="test_case_id" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Time" name="Time" visible="true" foreignKey="time_id" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Target" name="Target" visible="true" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="VUser" name="VUser" visible="true" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Avg Response Time" column="response_time" datatype="Numeric" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="Avg Response Latency" column="latency" datatype="Numeric" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="Avg Response Size" column="response_size" datatype="Numeric" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="Avg Request Size" column="request_size" datatype="Numeric" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="Response Size" column="response_size" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Request Size" column="request_size" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Number of Requests" column="id" datatype="Integer" aggregator="count" visible="true">
+    </Measure>
+    <Measure name="Uploaded" column="request_size" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Downloaded" column="response_size" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="VUsers" column="vuser_id" datatype="Integer" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="Min Response Time" column="response_time" datatype="Numeric" aggregator="min" visible="true">
+    </Measure>
+    <Measure name="Max Response Time" column="response_time" datatype="Numeric" aggregator="max" visible="true">
+    </Measure>
+    <Measure name="Execution Count" column="success" aggregator="count" visible="true">
+    </Measure>
+    <Measure name="Success Count" column="success" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Success Rate" column="success" formatString="0.00" aggregator="avg" visible="true">
+    </Measure>
+    <CalculatedMember name="Error Count" dimension="Measures" formula="[Measures].[Execution Count] - [Measures].[Success Count]" visible="true"/>
+    <!--<CalculatedMember name="Standard Deviation" dimension="Measures" formula="Stdev({[Target.Target Hierarchy].[Response Time].Members})" visible="true"/>-->
+  </Cube>
+</Schema>

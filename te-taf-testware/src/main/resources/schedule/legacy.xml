@@ -1,0 +1,17 @@
+<schedule>
+    <item>
+        <name>1</name>
+        <component>com.ericsson.cifwk.taf.execution:te-legacy-pom-testware:1.0.49</component>
+        <suites>success.xml</suites>
+    </item>
+    <item>
+        <name>2</name>
+        <component>com.ericsson.cifwk.taf.execution:te-legacy-pom-testware:1.0.49</component>
+        <suites>success.xml</suites>
+    </item>
+    <item>
+        <name>3</name>
+        <component>com.ericsson.cifwk.taf.execution:te-legacy-pom-testware:1.0.49</component>
+        <suites>success.xml</suites>
+    </item>
+</schedule>

@@ -1,0 +1,27 @@
+<schedule>
+    <item>
+        <name>1</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>success.xml</suites>
+    </item>
+    <item timeout-in-seconds="120">
+        <name>2</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>hang.xml</suites>
+    </item>
+    <item timeout-in-seconds="120">
+        <name>3</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>hang.xml</suites>
+    </item>
+    <item timeout-in-seconds="120">
+        <name>4</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>hang.xml</suites>
+    </item>
+    <item timeout-in-seconds="120">
+        <name>5</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+        <suites>hang.xml</suites>
+    </item>
+</schedule>
